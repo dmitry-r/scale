@@ -2,6 +2,9 @@
 FROM centos:centos7
 MAINTAINER Trevor R.H. Clarke <tclarke@ball.com>
 
+ENV http_proxy=http://192.168.4.10:8080
+ENV https_proxy=http://192.168.4.10:8080
+
 EXPOSE 80
 EXPOSE 8000
 EXPOSE 5051
@@ -93,6 +96,9 @@ RUN gulp deploy \
  && tar -C /opt/scale/ui -zxf deploy/scale-ui.tar.gz
 
 RUN make -C /opt/scale/docs code_docs html
+
+ENV http_proxy=
+ENV https_proxy=
 
 # cleanup
 WORKDIR /opt/scale
