@@ -97,9 +97,6 @@ RUN gulp deploy \
 
 RUN make -C /opt/scale/docs code_docs html
 
-ENV http_proxy=
-ENV https_proxy=
-
 # cleanup
 WORKDIR /opt/scale
 RUN yum -y history undo last \
@@ -114,6 +111,9 @@ RUN mkdir -p /var/log/scale /var/lib/scale-metrics /scale/input_data /scale/outp
  && chmod a+x manage.py entryPoint.sh deployDb.py deployElk.py
 # Issues with DC/OS, so run as root for now..shouldn't be a huge security concern
 #USER 7498
+
+ENV http_proxy=
+ENV https_proxy=
 
 # finish the build
 RUN ./manage.py collectstatic --noinput --settings=
